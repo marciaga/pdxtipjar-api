@@ -1,0 +1,27 @@
+{
+  "name": "pdxtipjar-api",
+  "version": "0.0.1",
+  "description": "The API layer for PDX TipJar",
+  "main": "index.mjs",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon --experimental-modules src/server.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pdx",
+    "portland",
+    "tipjar"
+  ],
+  "author": "mark arciaga",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@hapi/glue": "^7.0.0",
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/joi": "^17.1.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
