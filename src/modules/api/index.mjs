@@ -1,6 +1,12 @@
 import { API_BASE_URL } from './constants.mjs';
+import { initRoutes } from './routes/index.mjs';
 
 const apiPlugin = (server) => {
+  initRoutes({
+    server,
+    baseUrl: API_BASE_URL,
+  });
+
   server.route({
     path: `${API_BASE_URL}/health`,
     method: 'GET',
@@ -13,7 +19,7 @@ const apiPlugin = (server) => {
 const plugin = {
   pkg: {
     name: 'api',
-    version: "0.0.1",
+    version: '0.0.1',
   },
   register: apiPlugin,
 };

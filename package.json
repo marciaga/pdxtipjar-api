@@ -5,6 +5,8 @@
   "main": "index.mjs",
   "scripts": {
     "dev": "NODE_ENV=development nodemon --experimental-modules src/server.mjs",
+    "initdb": "node --experimental-modules scripts/initdb.mjs",
+    "migratedb": "node scripts/migrate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,7 +21,12 @@
     "@hapi/glue": "^7.0.0",
     "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.1",
-    "dotenv": "^8.2.0"
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "fast-csv": "^4.1.3",
+    "pg": "^8.0.0",
+    "postgres": "^1.0.2",
+    "uniqid": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
