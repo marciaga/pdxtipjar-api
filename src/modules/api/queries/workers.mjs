@@ -28,3 +28,8 @@ export const createWorkerQuery = `INSERT
   INTO workers(${standardColumns.join(',')})
   VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING ${standardColumns.join(',')}
 `;
+
+export const deleteWorkerQuery = `DELETE
+  FROM workers
+  WHERE user_id=$1
+`;

@@ -22,3 +22,7 @@ export const getWorkersParamsSchema = Joi.object({
 });
 
 export const postWorkersPayloadSchema = workerSchema;
+
+export const deleteWorkerParamsSchema = Joi.object({
+  userId: Joi.string().required(),
+});

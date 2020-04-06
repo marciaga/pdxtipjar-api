@@ -5,6 +5,7 @@ import {
   getWorkersQuery,
   getWorkersByIdQuery,
   createWorkerQuery,
+  deleteWorkerQuery,
   standardColumns,
 } from '../queries/workers.mjs';
 
@@ -51,6 +52,19 @@ export const postHandler = async (request, h) => {
       success: true,
       userId,
     };
+  } catch (error) {
+    console.log('err , ', error)
+    // handle error with Boom
+  }
+};
+
+export const deleteHandler = async (request, h) => {
+  try {
+    const { params } = request;
+
+    await h.pg.query(deleteWorkerQuery, [params.userId]);
+
+    return { success: true };
   } catch (error) {
     console.log('err , ', error)
     // handle error with Boom

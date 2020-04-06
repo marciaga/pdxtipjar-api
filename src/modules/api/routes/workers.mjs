@@ -2,8 +2,13 @@ import {
   getWorkersParamsSchema,
   getWorkersQuerySchema,
   postWorkersPayloadSchema,
+  deleteWorkerParamsSchema,
 } from '../schemas/worker.mjs';
-import { getHandler, postHandler } from '../handlers/workers.mjs';
+import {
+  getHandler,
+  postHandler,
+  deleteHandler,
+} from '../handlers/workers.mjs';
 
 export const initWorkerRoutes = (baseUrl) => [
   {
@@ -27,17 +32,19 @@ export const initWorkerRoutes = (baseUrl) => [
       },
     },
   },
+  {
+    method: 'DELETE',
+    path: `${baseUrl}/workers/{userId}`,
+    handler: deleteHandler,
+    options: {
+      validate: {
+        params: deleteWorkerParamsSchema,
+      },
+    },
+  },
 ];
 
 /* PUT workers
  * body: 
   work, role, name, app, handle, support_others, healthcare
 */
-
-/* DELETE workers
- * params: user_id
-*/
-
-
-
-
