@@ -1,4 +1,17 @@
-import { getWorkersQuery, getWorkersByIdQuery } from '../queries/workers.mjs';
+import uniqid from 'uniqid';
+
+import { snakeToCamel } from '../../../utils/string.mjs';
+import {
+  getWorkersQuery,
+  getWorkersByIdQuery,
+  createWorkerQuery,
+  standardColumns,
+} from '../queries/workers.mjs';
+
+const standardizeCols = (cols) => {
+  const slicedCols = cols.slice(1, cols.length); // remove user_id
+  return slicedCols.map(col => snakeToCamel(col)); // ensure everything's camel-cased
+};
 
 export const getHandler = async (request, h) => {
   try {
@@ -17,6 +30,27 @@ export const getHandler = async (request, h) => {
     const { rows } = result;
 
     return { workers: rows };
+  } catch (error) {
+    console.log('err , ', error)
+    // handle error with Boom
+  }
+};
+
+export const postHandler = async (request, h) => {
+  try {
+    const { payload } = request;
+
+    const userId = uniqid();
+    const postCols = standardizeCols(standardColumns);
+    const baseCols = postCols.map(col => payload[col]);
+    const columnValues = [userId, ...baseCols];
+  
+    await h.pg.query(createWorkerQuery, columnValues);
+
+    return {
+      success: true,
+      userId,
+    };
   } catch (error) {
     console.log('err , ', error)
     // handle error with Boom

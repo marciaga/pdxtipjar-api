@@ -1,5 +1,9 @@
-import { getWorkersParamsSchema, getWorkersQuerySchema } from '../schemas/worker.mjs';
-import { getHandler } from '../handlers/workers.mjs';
+import {
+  getWorkersParamsSchema,
+  getWorkersQuerySchema,
+  postWorkersPayloadSchema,
+} from '../schemas/worker.mjs';
+import { getHandler, postHandler } from '../handlers/workers.mjs';
 
 export const initWorkerRoutes = (baseUrl) => [
   {
@@ -13,12 +17,17 @@ export const initWorkerRoutes = (baseUrl) => [
       },
     },
   },
+  {
+    method: 'POST',
+    path: `${baseUrl}/workers`,
+    handler: postHandler,
+    options: {
+      validate: {
+        payload: postWorkersPayloadSchema,
+      },
+    },
+  },
 ];
-
-/* POST workers
- * body: 
-  work, role, name, app, handle, support_others, healthcare
-*/
 
 /* PUT workers
  * body: 

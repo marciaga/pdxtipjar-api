@@ -1,7 +1,6 @@
 import Joi from '@hapi/joi';
 
-export const workerSchema = Joi.object({
-  userId: Joi.string(),
+const workerSchema = Joi.object({
   work: Joi.string(),
   role: Joi.string(),
   name: Joi.string(),
@@ -10,6 +9,8 @@ export const workerSchema = Joi.object({
   supportOthers: Joi.string(),
   healthcare: Joi.string(),
 });
+
+export const workersSchema = Joi.array().items(workerSchema);
 
 export const getWorkersQuerySchema = Joi.object({
   limit: Joi.number(),
@@ -20,4 +21,4 @@ export const getWorkersParamsSchema = Joi.object({
   userId: Joi.string(),
 });
 
-export const workersSchema = Joi.array().items(workerSchema);
+export const postWorkersPayloadSchema = workerSchema;
