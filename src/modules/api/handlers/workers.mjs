@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom';
 import uniqid from 'uniqid';
 
 import { snakeToCamel } from '../../../utils/string.mjs';
@@ -34,7 +35,7 @@ export const getHandler = async (request, h) => {
     return { workers: rows };
   } catch (error) {
     console.log('err , ', error)
-    // handle error with Boom
+    return Boom.serverUnavailable('unavailable');
   }
 };
 
@@ -55,7 +56,7 @@ export const postHandler = async (request, h) => {
     };
   } catch (error) {
     console.log('err , ', error)
-    // handle error with Boom
+    return Boom.serverUnavailable('unavailable');
   }
 };
 
@@ -76,7 +77,7 @@ export const putHandler = async (request, h) => {
     };
   } catch (error) {
     console.log('err , ', error)
-    // handle error with Boom
+    return Boom.serverUnavailable('unavailable');
   }
 };
 
@@ -89,6 +90,6 @@ export const deleteHandler = async (request, h) => {
     return { success: true };
   } catch (error) {
     console.log('err , ', error)
-    // handle error with Boom
+    return Boom.serverUnavailable('unavailable');
   }
 };
