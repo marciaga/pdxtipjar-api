@@ -1,5 +1,4 @@
-export const standardColumns = [
-  'user_id',
+const baseCols = [
   'work',
   'role',
   'name',
@@ -7,6 +6,11 @@ export const standardColumns = [
   'handle',
   'support_others',
   'healthcare',
+];
+
+export const standardColumns = [
+  'user_id',
+  ...baseCols,
 ];
 
 export const getWorkersQuery = `SELECT
@@ -27,6 +31,19 @@ export const getWorkersByIdQuery = `SELECT
 export const createWorkerQuery = `INSERT
   INTO workers(${standardColumns.join(',')})
   VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING ${standardColumns.join(',')}
+`;
+
+export const updateWorkerQuery = `UPDATE
+  workers
+  SET work = $2,
+  role = $3,
+  name = $4,
+  app = $5,
+  handle = $6,
+  support_others = $7,
+  healthcare = $8
+  WHERE
+  user_id=$1;
 `;
 
 export const deleteWorkerQuery = `DELETE

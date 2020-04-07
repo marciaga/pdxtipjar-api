@@ -5,6 +5,7 @@ import {
   getWorkersQuery,
   getWorkersByIdQuery,
   createWorkerQuery,
+  updateWorkerQuery,
   deleteWorkerQuery,
   standardColumns,
 } from '../queries/workers.mjs';
@@ -51,6 +52,27 @@ export const postHandler = async (request, h) => {
     return {
       success: true,
       userId,
+    };
+  } catch (error) {
+    console.log('err , ', error)
+    // handle error with Boom
+  }
+};
+
+export const putHandler = async (request, h) => {
+  try {
+    const { payload, params } = request;
+    const { userId } = params;
+
+    const values = { userId, ...payload };
+    const putValues = standardColumns
+      .map(col => snakeToCamel(col))
+      .map(c => values[c]);
+
+    await h.pg.query(updateWorkerQuery, putValues);
+
+    return {
+      success: true,
     };
   } catch (error) {
     console.log('err , ', error)

@@ -2,11 +2,14 @@ import {
   getWorkersParamsSchema,
   getWorkersQuerySchema,
   postWorkersPayloadSchema,
+  putWorkersPayloadSchema,
+  putWorkerParamsSchema,
   deleteWorkerParamsSchema,
 } from '../schemas/worker.mjs';
 import {
   getHandler,
   postHandler,
+  putHandler,
   deleteHandler,
 } from '../handlers/workers.mjs';
 
@@ -29,6 +32,17 @@ export const initWorkerRoutes = (baseUrl) => [
     options: {
       validate: {
         payload: postWorkersPayloadSchema,
+      },
+    },
+  },
+  {
+    method: 'PUT',
+    path: `${baseUrl}/workers/{userId}`,
+    handler: putHandler,
+    options: {
+      validate: {
+        payload: putWorkersPayloadSchema,
+        params: putWorkerParamsSchema,
       },
     },
   },

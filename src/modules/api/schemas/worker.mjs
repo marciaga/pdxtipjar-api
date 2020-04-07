@@ -23,6 +23,12 @@ export const getWorkersParamsSchema = Joi.object({
 
 export const postWorkersPayloadSchema = workerSchema;
 
+export const putWorkersPayloadSchema = workerSchema;
+
+export const putWorkerParamsSchema = Joi.object({
+  userId: Joi.string().required(),
+});
+
 export const deleteWorkerParamsSchema = Joi.object({
   userId: Joi.string().required(),
 });
