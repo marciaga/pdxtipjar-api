@@ -8,6 +8,7 @@ import {
 } from '../schemas/worker.mjs';
 import {
   getHandler,
+  getRandomHandler,
   postHandler,
   putHandler,
   deleteHandler,
@@ -19,10 +20,19 @@ export const initWorkerRoutes = (baseUrl) => [
     path: `${baseUrl}/workers/{userId?}`,
     handler: getHandler,
     options: {
+      auth: false,
       validate: {
         params: getWorkersParamsSchema,
         query: getWorkersQuerySchema,
       },
+    },
+  },
+  {
+    method: 'GET',
+    path: `${baseUrl}/workers/random`,
+    handler: getRandomHandler,
+    options: {
+      auth: false,
     },
   },
   {
@@ -57,8 +67,3 @@ export const initWorkerRoutes = (baseUrl) => [
     },
   },
 ];
-
-/* PUT workers
- * body: 
-  work, role, name, app, handle, support_others, healthcare
-*/

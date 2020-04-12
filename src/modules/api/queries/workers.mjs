@@ -50,3 +50,17 @@ export const deleteWorkerQuery = `DELETE
   FROM workers
   WHERE user_id=$1
 `;
+
+export const getWorkersCountQuery = `
+  SELECT reltuples::bigint
+  FROM pg_catalog.pg_class
+  WHERE relname = 'workers';
+`;
+
+export const getRandomWorkerQuery = `
+  SELECT ${standardColumns} 
+  FROM workers OFFSET floor(random() * (
+    SELECT COUNT(*)
+    FROM workers))
+  LIMIT 1
+`;

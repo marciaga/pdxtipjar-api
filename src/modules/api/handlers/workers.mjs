@@ -9,6 +9,8 @@ import {
   updateWorkerQuery,
   deleteWorkerQuery,
   standardColumns,
+  getWorkersCountQuery,
+  getRandomWorkerQuery,
 } from '../queries/workers.mjs';
 
 const standardizeCols = (cols) => {
@@ -20,7 +22,7 @@ export const getHandler = async (request, h) => {
   try {
     const { query, params } = request;
     const { userId } = params;
-    const { limit = 100, offset = 0 } = query;
+    const { limit = 50, offset = 0 } = query;
 
     let result;
 
@@ -30,11 +32,30 @@ export const getHandler = async (request, h) => {
       result = await h.pg.query(getWorkersQuery, [offset, limit]);
     }
 
+    const response = await h.pg.query(getWorkersCountQuery);
+    const { rows: r } = response;
+    const count = r.length ? r[0].reltuples : '0'; // reltuples is a string
+
+    const { rows } = result;
+
+    return {
+      count: parseInt(count, 10),
+      workers: rows,
+    };
+  } catch (error) {
+    console.log('err , ', error)
+    return Boom.serverUnavailable('unavailable');
+  }
+};
+
+export const getRandomHandler = async (request, h) => {
+  try {
+    const result = await h.pg.query(getRandomWorkerQuery, []);
     const { rows } = result;
 
     return { workers: rows };
   } catch (error) {
-    console.log('err , ', error)
+    console.log('error: ', error);
     return Boom.serverUnavailable('unavailable');
   }
 };
