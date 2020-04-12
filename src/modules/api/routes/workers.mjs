@@ -1,6 +1,7 @@
 import {
   getWorkersParamsSchema,
   getWorkersQuerySchema,
+  getWorkersSearchQuerySchema,
   postWorkersPayloadSchema,
   putWorkersPayloadSchema,
   putWorkerParamsSchema,
@@ -9,6 +10,7 @@ import {
 import {
   getHandler,
   getRandomHandler,
+  getBySearchHandler,
   postHandler,
   putHandler,
   deleteHandler,
@@ -33,6 +35,16 @@ export const initWorkerRoutes = (baseUrl) => [
     handler: getRandomHandler,
     options: {
       auth: false,
+    },
+  },
+  {
+    method: 'GET',
+    path: `${baseUrl}/workers/search`,
+    handler: getBySearchHandler,
+    options: {
+      validate: {
+        query: getWorkersSearchQuerySchema,
+      },
     },
   },
   {

@@ -5,6 +5,7 @@ import { snakeToCamel } from '../../../utils/string.mjs';
 import {
   getWorkersQuery,
   getWorkersByIdQuery,
+  getWorkersBySearchQuery,
   createWorkerQuery,
   updateWorkerQuery,
   deleteWorkerQuery,
@@ -58,6 +59,21 @@ export const getRandomHandler = async (request, h) => {
     console.log('error: ', error);
     return Boom.serverUnavailable('unavailable');
   }
+};
+
+export const getBySearchHandler = async (request, h) => {
+  try {
+    const { query } = request;
+    const q = `%${query.q}%`
+    const result = await h.pg.query(getWorkersBySearchQuery, [q]);
+    const { rows } = result;
+
+    return { workers: rows };
+  } catch (error) {
+    console.log('error: ', error);
+    return Boom.serverUnavailable('unavailable');
+  }
+
 };
 
 export const postHandler = async (request, h) => {

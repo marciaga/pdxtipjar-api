@@ -64,3 +64,10 @@ export const getRandomWorkerQuery = `
     FROM workers))
   LIMIT 1
 `;
+
+export const getWorkersBySearchQuery = `
+  SELECT ${standardColumns}
+  FROM workers
+  WHERE name ILIKE $1
+    OR work ILIKE $1
+`;
