@@ -1,7 +1,6 @@
 import Boom from '@hapi/boom';
 import uniqid from 'uniqid';
 
-import { snakeToCamel } from '../../../utils/string.mjs';
 import {
   getWorkersQuery,
   getWorkersByIdQuery,
@@ -16,7 +15,7 @@ import {
 
 const standardizeCols = (cols) => {
   const slicedCols = cols.slice(1, cols.length); // remove user_id
-  return slicedCols.map(col => snakeToCamel(col)); // ensure everything's camel-cased
+  return slicedCols;
 };
 
 export const getHandler = async (request, h) => {
@@ -104,7 +103,6 @@ export const putHandler = async (request, h) => {
 
     const values = { userId, ...payload };
     const putValues = standardColumns
-      .map(col => snakeToCamel(col))
       .map(c => values[c]);
 
     await h.pg.query(updateWorkerQuery, putValues);

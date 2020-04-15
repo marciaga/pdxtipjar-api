@@ -1,4 +1,6 @@
 import hapiJwt from 'hapi-auth-jwt2';
+import jwksRsa from 'jwks-rsa';
+
 /*
 {
     id: '',
@@ -9,9 +11,13 @@ import hapiJwt from 'hapi-auth-jwt2';
     exp: 1481168474
 }
 */
-
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
-const validate = (decoded, request, callback) => callback(null, true);
+// const validate = async (decoded, request, callback) => callback(null, true);
+const validate = async (decoded) => {
+  return {
+    isValid: true,
+    credentials: decoded,
+  };
+};
 
 const plugin = {
   pkg: {
@@ -19,12 +25,21 @@ const plugin = {
     version: '0.0.1',
   },
   register: async (server) => {
-    server.register(hapiJwt);
+    await server.register(hapiJwt);
 
     server.auth.strategy('jwt', 'jwt', {
-        key: JWT_SECRET_KEY,
-        validate,
-        verifyOptions: { algorithms: ['HS256'] }
+      complete: true,
+      validate,
+      key: jwksRsa.hapiJwt2KeyAsync({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
+      }),
+      verifyOptions: {
+        issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+        algorithms: ['RS256'],
+      },
     });
 
     server.auth.default('jwt');

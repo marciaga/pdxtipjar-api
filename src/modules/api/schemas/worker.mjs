@@ -6,7 +6,7 @@ const workerSchema = Joi.object({
   name: Joi.string(),
   app: Joi.string(),
   handle: Joi.string(),
-  supportOthers: Joi.string(),
+  support_others: Joi.string(),
   healthcare: Joi.string(),
 });
 
@@ -23,7 +23,16 @@ export const getWorkersParamsSchema = Joi.object({
 
 export const postWorkersPayloadSchema = workerSchema;
 
-export const putWorkersPayloadSchema = workerSchema;
+export const putWorkersPayloadSchema = Joi.object({
+  work: Joi.string(),
+  role: Joi.string(),
+  name: Joi.string(),
+  app: Joi.string(),
+  handle: Joi.string(),
+  support_others: Joi.string(),
+  healthcare: Joi.string(),
+  user_id: Joi.string(),
+});
 
 export const putWorkerParamsSchema = Joi.object({
   userId: Joi.string().required(),

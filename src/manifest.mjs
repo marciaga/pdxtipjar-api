@@ -1,6 +1,7 @@
 import apiPlugin from './modules/api/index.mjs';
 import dbPlugin from './modules/db/sql.mjs';
 import authPlugin from './modules/auth/jwt.mjs';
+import loggerPlugin from './modules/logger/logger.mjs';
 
 const buildManifest = (vars) => {
   return {
@@ -14,11 +15,13 @@ const buildManifest = (vars) => {
     },
     register: {
       plugins: [{
-        plugin: apiPlugin,
+        plugin: authPlugin,
       }, {
         plugin: dbPlugin,
       }, {
-        plugin: authPlugin,
+        plugin: apiPlugin,
+      }, {
+        plugin: loggerPlugin,
       }],
     }
   };
