@@ -13,6 +13,9 @@ const apiPlugin = (server) => {
     config: {
       handler: () => ({ status: 'OK' }),
     },
+    options: {
+      auth: false,
+    },
   });
 };
 
