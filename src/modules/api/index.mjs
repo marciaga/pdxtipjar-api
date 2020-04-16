@@ -10,9 +10,7 @@ const apiPlugin = (server) => {
   server.route({
     path: `${API_BASE_URL}/health`,
     method: 'GET',
-    config: {
-      handler: () => ({ status: 'OK' }),
-    },
+    handler: () => ({ status: 'OK' }),
     options: {
       auth: false,
     },
