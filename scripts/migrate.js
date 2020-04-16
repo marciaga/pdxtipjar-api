@@ -15,6 +15,7 @@ const client = new pg.Pool({
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
+  sslmode: process.env.PGSSLMODE,
 });
 
 axios({
