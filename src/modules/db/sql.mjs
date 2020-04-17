@@ -12,6 +12,7 @@ const plugin = {
       database: process.env.PGDATABASE,
       password: process.env.PGPASSWORD,
       port: process.env.PGPORT,
+      ssl: true,
     };
 
     const pool = new pg.Pool(config);
