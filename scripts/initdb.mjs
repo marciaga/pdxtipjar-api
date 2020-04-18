@@ -1,18 +1,27 @@
 import dotenv from 'dotenv';
-import postgres from 'postgres';
+import pg from 'pg';
+
+dotenv.config();
 
 const init = async () => {
-  dotenv.config();
 
   try {
-    // connect to the local database server
-    const sql = postgres();
-
+    const client = new pg.Pool({
+      user: process.env.PGUSERNAME,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT,
+      sslmode: process.env.PGSSLMODE,
+    });
+    
     console.log('dropping table, if exists...');
-    await sql`DROP TABLE IF EXISTS workers`;
+    const dropTableQuery = `DROP TABLE IF EXISTS workers`;
+
+    await client.query(dropTableQuery);
 
     console.log('creating table...');
-    await sql`CREATE TABLE IF NOT EXISTS workers (
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS workers (
       id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY
       , user_id varchar(50) NOT NULL
       , work text NOT NULL
@@ -24,7 +33,11 @@ const init = async () => {
       , healthcare text NULL
     )`;
 
-    await sql.end();
+    await client.query(createTableQuery);
+
+    client.end();
+    console.log('success')
+    process.exit(0);
   } catch (err) {
     console.log(err);
     throw err;
