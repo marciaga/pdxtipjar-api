@@ -6,14 +6,17 @@ dotenv.config();
 const init = async () => {
 
   try {
-    const client = new pg.Pool({
+    const config = {
       user: process.env.PGUSERNAME,
       host: process.env.PGHOST,
       database: process.env.PGDATABASE,
       password: process.env.PGPASSWORD,
       port: process.env.PGPORT,
       sslmode: process.env.PGSSLMODE,
-    });
+    };
+    console.log('config: ', config);
+
+    const client = new pg.Pool(config);
     
     console.log('dropping table, if exists...');
     const dropTableQuery = `DROP TABLE IF EXISTS workers`;
