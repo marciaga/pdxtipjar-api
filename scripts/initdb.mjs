@@ -12,7 +12,7 @@ const init = async () => {
       database: process.env.PGDATABASE,
       password: process.env.PGPASSWORD,
       port: process.env.PGPORT,
-      sslmode: process.env.PGSSLMODE,
+      ssl: process.env.PGSSLMODE,
     };
     console.log('config: ', config);
 
