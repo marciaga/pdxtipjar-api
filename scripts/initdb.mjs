@@ -14,7 +14,6 @@ const init = async () => {
       port: process.env.PGPORT,
       ssl: process.env.PGSSLMODE,
     };
-    console.log('config: ', config);
 
     const client = new pg.Pool(config);
     
