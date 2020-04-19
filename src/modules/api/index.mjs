@@ -8,6 +8,17 @@ const apiPlugin = (server) => {
   });
 
   server.route({
+    path: `${API_BASE_URL}/kill`,
+    method: 'GET',
+    handler: () => {
+      process.exit(1);
+    },
+    options: {
+      auth: false,
+    },
+  })
+
+  server.route({
     path: `${API_BASE_URL}/health`,
     method: 'GET',
     handler: () => ({ status: 'OK' }),
