@@ -11,7 +11,7 @@ import {
   standardColumns,
   getWorkersCountQuery,
   getRandomWorkerQuery,
-} from '../queries/workers.mjs';
+} from '../queries/workers.js';
 
 const standardizeCols = (cols) => {
   const slicedCols = cols.slice(1, cols.length); // remove user_id

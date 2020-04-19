@@ -1,7 +1,7 @@
-import apiPlugin from './modules/api/index.mjs';
-import dbPlugin from './modules/db/sql.mjs';
-import authPlugin from './modules/auth/jwt.mjs';
-import loggerPlugin from './modules/logger/logger.mjs';
+import apiPlugin from './modules/api/index.js';
+import dbPlugin from './modules/db/sql.js';
+import authPlugin from './modules/auth/jwt.js';
+import loggerPlugin from './modules/logger/logger.js';
 
 const buildManifest = (vars) => {
   return {

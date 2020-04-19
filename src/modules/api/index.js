@@ -1,5 +1,5 @@
-import { API_BASE_URL } from './constants.mjs';
-import { initRoutes } from './routes/index.mjs';
+import { API_BASE_URL } from './constants.js';
+import { initRoutes } from './routes/index.js';
 
 const apiPlugin = (server) => {
   initRoutes({

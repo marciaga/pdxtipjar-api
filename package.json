@@ -2,12 +2,13 @@
   "name": "pdxtipjar-api",
   "version": "0.0.1",
   "description": "The API layer for PDX TipJar",
-  "main": "index.mjs",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --experimental-modules src/server.mjs",
-    "start": "NODE_ENV=production node --experimental-modules src/server.mjs",
-    "initdb": "node --experimental-modules scripts/initdb.mjs",
-    "migratedb": "node scripts/migrate.js",
+    "dev": "NODE_ENV=development nodemon --experimental-modules src/server.js",
+    "start": "NODE_ENV=production node --experimental-modules src/server.js",
+    "initdb": "node --experimental-modules scripts/initdb.js",
+    "migratedb": "node --experimental-modules scripts/migrate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

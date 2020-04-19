@@ -6,7 +6,7 @@ import {
   putWorkersPayloadSchema,
   putWorkerParamsSchema,
   deleteWorkerParamsSchema,
-} from '../schemas/worker.mjs';
+} from '../schemas/worker.js';
 import {
   getHandler,
   getRandomHandler,
@@ -14,7 +14,7 @@ import {
   postHandler,
   putHandler,
   deleteHandler,
-} from '../handlers/workers.mjs';
+} from '../handlers/workers.js';
 
 export const initWorkerRoutes = (baseUrl) => [
   {
