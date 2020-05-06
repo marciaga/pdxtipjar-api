@@ -42,6 +42,7 @@ export const initWorkerRoutes = (baseUrl) => [
     path: `${baseUrl}/workers/search`,
     handler: getBySearchHandler,
     options: {
+      auth: false,
       validate: {
         query: getWorkersSearchQuerySchema,
       },
@@ -52,6 +53,7 @@ export const initWorkerRoutes = (baseUrl) => [
     path: `${baseUrl}/workers`,
     handler: postHandler,
     options: {
+      auth: false,
       validate: {
         payload: postWorkersPayloadSchema,
       },
