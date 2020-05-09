@@ -16,8 +16,9 @@ export const standardColumns = [
 export const getWorkersQuery = `SELECT
   ${standardColumns}
   FROM workers
-  OFFSET $1 ROWS
-  FETCH FIRST $2 ROW ONLY
+  WHERE name ILIKE $1 OR work ILIKE $1 OR $1 IS NULL
+  OFFSET $2 ROWS
+  FETCH FIRST $3 ROW ONLY
 `;
 
 export const getWorkersByIdQuery = `SELECT
@@ -63,11 +64,4 @@ export const getRandomWorkerQuery = `
     SELECT COUNT(*)
     FROM workers))
   LIMIT 1
-`;
-
-export const getWorkersBySearchQuery = `
-  SELECT ${standardColumns}
-  FROM workers
-  WHERE name ILIKE $1
-    OR work ILIKE $1
 `;

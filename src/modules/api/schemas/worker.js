@@ -13,6 +13,7 @@ const workerSchema = Joi.object({
 export const workersSchema = Joi.array().items(workerSchema);
 
 export const getWorkersQuerySchema = Joi.object({
+  q: Joi.string().alphanum().allow(''),
   limit: Joi.number(),
   offset: Joi.number(),
 });
@@ -40,8 +41,4 @@ export const putWorkerParamsSchema = Joi.object({
 
 export const deleteWorkerParamsSchema = Joi.object({
   userId: Joi.string().required(),
-});
-
-export const getWorkersSearchQuerySchema = Joi.object({
-  q: Joi.string().alphanum(),
 });

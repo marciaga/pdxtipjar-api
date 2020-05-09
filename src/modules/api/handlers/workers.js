@@ -4,7 +4,6 @@ import uniqid from 'uniqid';
 import {
   getWorkersQuery,
   getWorkersByIdQuery,
-  getWorkersBySearchQuery,
   createWorkerQuery,
   updateWorkerQuery,
   deleteWorkerQuery,
@@ -22,14 +21,15 @@ export const getHandler = async (request, h) => {
   try {
     const { query, params } = request;
     const { userId } = params;
-    const { limit = 50, offset = 0 } = query;
+    const { q, limit = 50, offset = 0 } = query;
+    const searchQ = q ? `%${q}%` : null;
 
     let result;
 
     if (userId) {
       result = await h.pg.query(getWorkersByIdQuery, [userId, offset, limit]);
     } else {
-      result = await h.pg.query(getWorkersQuery, [offset, limit]);
+      result = await h.pg.query(getWorkersQuery, [searchQ, offset, limit]);
     }
 
     const response = await h.pg.query(getWorkersCountQuery);
@@ -58,21 +58,6 @@ export const getRandomHandler = async (request, h) => {
     console.log('error: ', error);
     return Boom.serverUnavailable('unavailable');
   }
-};
-
-export const getBySearchHandler = async (request, h) => {
-  try {
-    const { query } = request;
-    const q = `%${query.q}%`
-    const result = await h.pg.query(getWorkersBySearchQuery, [q]);
-    const { rows } = result;
-
-    return { workers: rows };
-  } catch (error) {
-    console.log('error: ', error);
-    return Boom.serverUnavailable('unavailable');
-  }
-
 };
 
 export const postHandler = async (request, h) => {

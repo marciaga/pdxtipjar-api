@@ -1,8 +1,8 @@
-const pg = require('pg');
-const dotenv = require('dotenv');
-const fastcsv = require('fast-csv');
-const axios = require('axios');
-const uniqid = require('uniqid');
+import pg from 'pg';
+import dotenv from 'dotenv';
+import fastcsv from 'fast-csv';
+import axios from 'axios';
+import uniqid from 'uniqid';
 
 dotenv.config();
 
